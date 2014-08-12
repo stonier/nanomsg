@@ -16,8 +16,8 @@ find_package(catkin REQUIRED)
 ##############################################################################
 
 catkin_package(
-  INCLUDE_DIRS src
-  LIBRARIES nanomsg
+  INCLUDE_DIRS .
+  LIBRARIES ${PROJECT_NAME}
   # DEPENDS # should somehow get -pthreads and -lanl in here
 )
 
@@ -75,5 +75,5 @@ add_definitions(
 # Sources
 ##############################################################################
 
-add_subdirectory(src)
+add_subdirectory(nanomsg)
 
