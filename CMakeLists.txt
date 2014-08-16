@@ -25,9 +25,22 @@ catkin_package(
 # Project Configuration
 ##############################################################################
 
-# These have been blindly grabbed from a ./configure on ubuntu amd64 trusty
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu99")
+
+list(APPEND CMAKE_REQUIRED_DEFINITIONS -D_GNU_SOURCE)
+check_symbol_exists(accept4 sys/socket.h HAVE_ACCEPT4)
+list(REMOVE_ITEM CMAKE_REQUIRED_DEFINITIONS -D_GNU_SOURCE)
+
+if(HAVE_ACCEPT4)
+  add_definitions(
+    -DHAVE_ACCEPT4
+    -DNN_HAVE_ACCEPT4
+  )
+endif()
+
+# Warning: the remaining have been blindly grabbed from a ./configure on
+# ubuntu amd64 trusty
 add_definitions(
     -DHAVE_PTHREAD_PRIO_INHERIT
     -DSTDC_HEADERS
@@ -60,8 +73,6 @@ add_definitions(
     -DNN_USE_EPOLL
     -DHAVE_GETIFADDRS
     -DNN_USE_IFADDRS
-    -DHAVE_ACCEPT4
-    -DNN_HAVE_ACCEPT4
     -DNN_HAVE_GETADDRINFO_A
     -DNN_HAVE_SOCKETPAIR
     -DNN_HAVE_SEMAPHORE
