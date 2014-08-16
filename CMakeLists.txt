@@ -39,6 +39,16 @@ if(HAVE_ACCEPT4)
   )
 endif()
 
+# Currently no easy way of detecting if __sync_fetch_and_add_4
+# is supported, so define this from outside if you get the following error:
+#
+#    libnanomsg.so: undefined reference to `__sync_fetch_and_add_4'
+#
+# We found it wasn't supported on our arm1176jzf-s/2.6.32 platform.
+if(NOT DEFINED NN_DISABLE_ATOMIC_GCC_BUILTINS)
+  add_definitions(-DNN_HAVE_GCC_ATOMIC_BUILTINS)
+endif()
+
 # Warning: the remaining have been blindly grabbed from a ./configure on
 # ubuntu amd64 trusty
 add_definitions(
@@ -76,7 +86,6 @@ add_definitions(
     -DNN_HAVE_GETADDRINFO_A
     -DNN_HAVE_SOCKETPAIR
     -DNN_HAVE_SEMAPHORE
-    -DNN_HAVE_GCC_ATOMIC_BUILTINS
     -DNN_USE_EVENTFD
     -DHAVE_DLFCN_H
     -D_GNU_SOURCE -D_GNU_SOURCE -D_GNU_SOURCE
