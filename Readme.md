@@ -15,4 +15,4 @@ One variable that I haven't got an automatic test for yet is for our limited too
 * toolchain: gcc 4.6
 
 If you get a `libnanomsg.so: undefined reference to `__sync_fetch_and_add_4'` error when linking this library to
-your programs, then you'll need to disable gcc's builtin atomic plugins. 
+your programs (happens on some arm cross compiles), then you'll need to disable gcc's builtin atomic plugins. 
