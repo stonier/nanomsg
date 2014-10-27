@@ -873,6 +873,9 @@ error:
                 /*  New connection arrived in asynchronous manner. */
 #if NN_HAVE_ACCEPT4
                 s = accept4 (usock->s, NULL, NULL, SOCK_CLOEXEC);
+                if ( (s < 0) && (errno == ENOSYS) ) {
+                    s = accept (usock->s, NULL, NULL);
+                }
 #else
                 s = accept (usock->s, NULL, NULL);
 #endif
