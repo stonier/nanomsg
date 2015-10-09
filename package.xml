@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>nanomsg</name>
-  <version>0.4.0</version>
+  <version>0.4.1</version>
   <description>The nanomsg package</description>
 
   <maintainer email="d.stonier@gmail.com">Daniel Stonier</maintainer>
